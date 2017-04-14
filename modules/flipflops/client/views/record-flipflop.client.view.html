@@ -1,0 +1,25 @@
+<section>
+  <div ng-if="!vm.recording">
+    <div class="page-header">
+      <p>
+        Do you agree with this statement?
+      </p>
+      <p>
+      {{vm.flipflop.topic.statement}}
+    </p>
+      </div>
+  
+    <button ng-click="vm.doVideo('pro')" class="btn btn-success">Yes</button>  
+    <button ng-click="vm.doVideo('con')" class="btn btn-danger">No</button>  
+    <button ng-click="vm.changeTopic('pro')" class="btn btn-warning">I don\'t know</button>  
+  </div>
+  
+  <div ng-if="vm.recording">  
+    <h1>Record your flip flops</h1>
+    {{vm.flipflop.topic.statement}}
+    <div class="col-md-12">
+      <recvid></recvid>
+        <button ng-click="vm.done()" class="btn btn-default">Done</button>  
+      </div>
+  </div>
+</section>

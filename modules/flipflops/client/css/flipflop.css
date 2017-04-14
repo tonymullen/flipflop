@@ -1,0 +1,37 @@
+html { background-color: #f7f7f7; }
+
+body {
+  background-color: white;
+  border: 1px solid rgb(15, 158, 238);
+  margin: 1% 25%;
+  text-align: center;
+  padding: 15px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid rgb(15, 158, 238);
+}
+
+a {
+  color: #2844FA;
+  text-decoration: none;
+}
+
+a:hover, a:focus { color: #1B29A4; }
+
+a:active { color: #000; }
+
+audio, video {
+  border: 1px solid rgb(15, 158, 238); 
+  width: 94%;
+}
+button[disabled], input[disabled] { background: rgba(216, 205, 205, 0.2); border: 1px solid rgb(233, 224, 224);}
+
+.container {
+	width: 100%;
+}
+
+.top-btn {
+	width: 100%;
+}

@@ -1,5 +1,5 @@
 {
-  "name": "meanjs",
+  "name": "flipflop",
   "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
   "version": "0.5.0",
   "meanjs-version": "0.5.0",
@@ -69,6 +69,7 @@
     "passport-paypal-openidconnect": "~0.1.1",
     "passport-twitter": "~1.0.4",
     "phantomjs-prebuilt": "~2.1.4",
+    "recordrtc": "^5.4.1",
     "serve-favicon": "~2.4.2",
     "socket.io": "^1.4.8",
     "validator": "~6.1.0",
