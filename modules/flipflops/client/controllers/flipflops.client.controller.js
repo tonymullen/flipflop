@@ -57,6 +57,7 @@
     }
 
     function done() {
+      $rootScope.$broadcast('post-files', {});
       $state.go('home');
     }
     // Remove existing Flipflop

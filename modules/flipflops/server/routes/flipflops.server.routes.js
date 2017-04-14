@@ -17,6 +17,9 @@ module.exports = function(app) {
     .put(flipflops.update)
     .delete(flipflops.delete);
 
+  app.route('/api/upload').all(flipflopsPolicy.isAllowed)
+    .post(flipflops.upload);
+
   // Finish by binding the Flipflop middleware
   app.param('flipflopId', flipflops.flipflopByID);
 };

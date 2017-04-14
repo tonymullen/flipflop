@@ -62,8 +62,15 @@
         scope.$on('rec-stop-con', function(event, data) {
           stopRecording('con');
         });
+        
+        scope.$on('post-files', function(event, data) {
+          postFiles(av_rec_data);
+        });
 
-        function postFiles(audio, video) {
+        //function postFiles(audio, video) {
+        function postFiles(av_rec_data) {
+          var audio = av_rec_data.pro.audio;
+          var video = av_rec_data.pro.video;
           fileName = generateRandomString();
           var files = { };
           files.audio = {
@@ -83,9 +90,9 @@
           videoElements.pro.src = '';
           videoElements.pro.poster = '/ajax-loader.gif';
 
-          xhr('/upload', JSON.stringify(files), function(_fileName) {
+          xhr('/api/upload', JSON.stringify(files), function(_fileName) {
             var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
-            videoElements.pro.src = href + 'uploads/' + _fileName;
+            videoElements.pro.src = href + '/api/upload/' + _fileName;
             videoElements.pro.play();
             videoElements.pro.muted = false;
             videoElements.pro.controls = true;

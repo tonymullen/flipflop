@@ -39,6 +39,12 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/flipflops/:flipflopId',
       permissions: ['get']
     }]
+  }, {
+    roles: ['user'],
+    allows: [{
+      resources: '/api/upload',
+      permissions: ['get', 'post']
+    }]
   }]);
 };
 

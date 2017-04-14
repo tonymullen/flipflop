@@ -27,6 +27,10 @@ exports.create = function(req, res) {
   });
 };
 
+exports.upload = function(req, res) {
+  console.log('uploading');
+};
+
 /**
  * Show the current Flipflop
  */
