@@ -8,7 +8,6 @@
   HomeController.$inject = ['$scope', '$state', 'Authentication', 'menuService'];
 
   function HomeController($scope, $state, Authentication, menuService) {
-    console.log($state);
     var vm = this;
 
     vm.accountMenu = menuService.getMenu('account').items[0];

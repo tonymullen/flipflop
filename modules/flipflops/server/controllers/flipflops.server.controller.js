@@ -7,7 +7,10 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Flipflop = mongoose.model('Flipflop'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  fs = require('fs'),
+  sys = require('sys'),
+  exec = require('child_process').exec;
 
 /**
  * Create a Flipflop
@@ -28,7 +31,12 @@ exports.create = function(req, res) {
 };
 
 exports.upload = function(req, res) {
-  console.log('uploading');
+  console.log('upload req:');
+  console.log(req.body);
+
+  // res.status(200).send({
+  //  message: 'Upload received'
+  // });
 };
 
 /**

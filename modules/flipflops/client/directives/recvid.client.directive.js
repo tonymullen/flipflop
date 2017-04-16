@@ -9,7 +9,9 @@
     .module('flipflops')
     .directive('recvid', recVidDirective);
 
-  function recVidDirective() {
+  recVidDirective.$inject = ['$http'];
+
+  function recVidDirective($http) {
     return {
       restrict: 'E',
       bindController: true,
@@ -62,12 +64,12 @@
         scope.$on('rec-stop-con', function(event, data) {
           stopRecording('con');
         });
-        
+
         scope.$on('post-files', function(event, data) {
           postFiles(av_rec_data);
         });
 
-        //function postFiles(audio, video) {
+        // function postFiles(audio, video) {
         function postFiles(av_rec_data) {
           var audio = av_rec_data.pro.audio;
           var video = av_rec_data.pro.video;
@@ -85,43 +87,55 @@
               contents: video.dataURL
             };
           }
-
           files.uploadOnlyAudio = !video;
           videoElements.pro.src = '';
           videoElements.pro.poster = '/ajax-loader.gif';
 
-          xhr('/api/upload', JSON.stringify(files), function(_fileName) {
-            var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
-            videoElements.pro.src = href + '/api/upload/' + _fileName;
-            videoElements.pro.play();
-            videoElements.pro.muted = false;
-            videoElements.pro.controls = true;
+          $http({
+            method: 'POST',
+            url: '/api/upload',
+            data: JSON.stringify(files)
+          }).then(function successCallback(response) {
+            console.log('received response');
+            console.log(response);
+          }, function errorCallback(response) {
+            console.log('fail response');
+            console.log(response);
           });
 
-          // if (mediaStream) mediaStream.stop();
-        }
+        //   xhr('/api/upload', JSON.stringify(files), function(_fileName) {
+        //     var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+        //     videoElements.pro.src = href + '/api/upload/' + _fileName;
+        //     videoElements.pro.play();
+        //     videoElements.pro.muted = false;
+        //     videoElements.pro.controls = true;
+        //   });
 
-        function xhr(url, data, callback) {
-          var request = new XMLHttpRequest();
-          request.onreadystatechange = function() {
-            if (request.readyState === 4 && request.status === 200) {
-              callback(request.responseText);
-            }
-          };
+        //   // if (mediaStream) mediaStream.stop();
+        // }
 
-          request.upload.onprogress = function(event) {
-            progressBar.max = event.total;
-            progressBar.value = event.loaded;
-            progressBar.innerHTML = 'Upload Progress ' + Math.round(event.loaded / event.total * 100) + '%';
-          };
+        // function xhr(url, data, callback) {
+        //   var request = new XMLHttpRequest();
+        //   request.onreadystatechange = function() {
+        //     if (request.readyState === 4 && request.status === 200) {
+        //       callback(request.responseText);
+        //     }
+        //   };
 
-          request.upload.onload = function() {
-            percentage.style.display = 'none';
-            progressBar.style.display = 'none';
-          };
+          // request.upload.onprogress = function(event) {
+          //   progressBar.max = event.total;
+          //   progressBar.value = event.loaded;
+          //   progressBar.innerHTML = 'Upload Progress ' + Math.round(event.loaded / event.total * 100) + '%';
+          // };
 
-          request.open('POST', url);
-          request.send(data);
+          // request.upload.onload = function() {
+          //   percentage.style.display = 'none';
+          //   progressBar.style.display = 'none';
+          // };
+
+          // console.log(data);
+          // request.open('POST', url);
+          // request.send(data);
         }
 
         function generateRandomString() {
