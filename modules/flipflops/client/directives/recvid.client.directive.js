@@ -71,30 +71,52 @@
 
         // function postFiles(audio, video) {
         function postFiles(av_rec_data) {
-          var audio = av_rec_data.pro.audio;
-          var video = av_rec_data.pro.video;
-          fileName = generateRandomString();
-          var files = { };
-          files.audio = {
-            name: fileName + '.' + audio.blob.type.split('/')[1], // MUST be wav or ogg
-            type: audio.blob.type,
-            contents: audio.dataURL
+          var pro = {};
+          var con = {};
+          var data = {
+            pro: {},
+            con: {}
           };
-          if (video) {
-            files.video = {
-              name: fileName + '.' + video.blob.type.split('/')[1], // MUST be webm or mp4
-              type: video.blob.type,
-              contents: video.dataURL
+          pro.audio = av_rec_data.pro.audio;
+          pro.video = av_rec_data.pro.video;
+          con.audio = av_rec_data.con.audio;
+          con.video = av_rec_data.con.video;
+          fileName = generateRandomString();
+
+          data.pro.audio = {
+            name: fileName + '.' + pro.audio.blob.type.split('/')[1], // MUST be wav or ogg
+            type: pro.audio.blob.type,
+            contents: pro.audio.dataURL
+          };
+          console.log(con.audio);
+          data.con.audio = {
+            name: fileName + '.' + con.audio.blob.type.split('/')[1], // MUST be wav or ogg
+            type: con.audio.blob.type,
+            contents: con.audio.dataURL
+          };
+          if (pro.video) {
+            data.pro.video = {
+              name: fileName + '.' + pro.video.blob.type.split('/')[1], // MUST be webm or mp4
+              type: pro.video.blob.type,
+              contents: pro.video.dataURL
             };
           }
-          files.uploadOnlyAudio = !video;
-          videoElements.pro.src = '';
-          videoElements.pro.poster = '/ajax-loader.gif';
+          if (con.video) {
+            data.con.video = {
+              name: fileName + '.' + con.video.blob.type.split('/')[1], // MUST be webm or mp4
+              type: con.video.blob.type,
+              contents: con.video.dataURL
+            };
+          }
+          data.pro.uploadOnlyAudio = !pro.video;
+          data.con.uploadOnlyAudio = !con.video;
+          // videoElements.src = '';
+          // videoElements.poster = '/ajax-loader.gif';
 
           $http({
             method: 'POST',
             url: '/api/upload',
-            data: JSON.stringify(files)
+            data: JSON.stringify(data)
           }).then(function successCallback(response) {
             console.log('received response');
             console.log(response);
@@ -173,6 +195,7 @@
                   'audio': audio,
                   'video': video
                 };
+                console.log(av_rec_data);
                 // postFiles(audio, video);
                 if (mediaStream) mediaStream.stop();
               });
