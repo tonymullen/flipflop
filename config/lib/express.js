@@ -84,7 +84,7 @@ module.exports.initMiddleware = function (app) {
     extended: true
   }));
   app.use(bodyParser.json({
-    limit: '50mb'
+    limit: '70mb'
   }));
   app.use(methodOverride());
 
@@ -134,6 +134,7 @@ module.exports.initSession = function (app, db) {
  */
 module.exports.initModulesConfiguration = function (app, db) {
   config.files.server.configs.forEach(function (configPath) {
+    console.log(path.resolve(configPath));
     require(path.resolve(configPath))(app, db);
   });
 };
