@@ -84,26 +84,26 @@
           fileName = generateRandomString();
 
           data.pro.audio = {
-            name: fileName + '.' + pro.audio.blob.type.split('/')[1], // MUST be wav or ogg
+            name: fileName + '_pro.' + pro.audio.blob.type.split('/')[1], // MUST be wav or ogg
             type: pro.audio.blob.type,
             contents: pro.audio.dataURL
           };
           console.log(con.audio);
           data.con.audio = {
-            name: fileName + '.' + con.audio.blob.type.split('/')[1], // MUST be wav or ogg
+            name: fileName + '_con.' + con.audio.blob.type.split('/')[1], // MUST be wav or ogg
             type: con.audio.blob.type,
             contents: con.audio.dataURL
           };
           if (pro.video) {
             data.pro.video = {
-              name: fileName + '.' + pro.video.blob.type.split('/')[1], // MUST be webm or mp4
+              name: fileName + '_pro.' + pro.video.blob.type.split('/')[1], // MUST be webm or mp4
               type: pro.video.blob.type,
               contents: pro.video.dataURL
             };
           }
           if (con.video) {
             data.con.video = {
-              name: fileName + '.' + con.video.blob.type.split('/')[1], // MUST be webm or mp4
+              name: fileName + '_con.' + con.video.blob.type.split('/')[1], // MUST be webm or mp4
               type: con.video.blob.type,
               contents: con.video.dataURL
             };

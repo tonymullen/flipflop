@@ -11,5 +11,11 @@ var path = require('path'),
  */
 module.exports = function (app, db) {
   module.exports.upload_dir = './uploads';
+  module.exports.s3 = {
+    key: '',
+    secret: '',
+    bucket: ''
+  };
+  module.exports.s3_enabled = false;
 };
 

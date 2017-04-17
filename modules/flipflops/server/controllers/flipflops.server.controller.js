@@ -32,20 +32,19 @@ exports.create = function(req, res) {
 };
 
 exports.upload = function(req, res) {
+  var message = {};
   ['pro', 'con'].forEach(pc => {
     _upload(res, req.body[pc].audio);
+    if (req.body[pc].uploadOnlyAudio) {
+      message[pc] = req.body[pc].audio.name;
+    }
     if (!req.body[pc].uploadOnlyAudio) {
       _upload(res, req.body[pc].video);
       merge(res, req.body[pc]);
+      message[pc] = req.body[pc].video.name;
     }
-
-    console.log(Object.keys(req.body[pc]));
   });
-  // console.log(req.body);
-
-  // res.status(200).send({
-  //  message: 'Upload received'
-  // });
+  res.status(200).send(message);
 };
 
 /**
@@ -155,57 +154,14 @@ function _upload(response, file) {
   file.contents = file.contents.split(',').pop();
 
   fileBuffer = new Buffer(file.contents, 'base64');
-  console.log(filePath);
   fs.writeFileSync(filePath, fileBuffer);
 }
 
-// this function merges wav/webm files
 function merge(response, files) {
-  // detect the current operating system
-  var isWin = !!process.platform.match(/^win/);
-
-  if (isWin) {
-    ifWin(response, files);
-  } else {
-    ifMac(response, files);
-  }
-}
-
-function ifWin(response, files) {
-  // following command tries to merge wav/webm files using ffmpeg
-  var merger = __dirname + '\\merger.bat';
-  var audioFile = __dirname + '\\uploads\\' + files.audio.name;
-  var videoFile = __dirname + '\\uploads\\' + files.video.name;
-  var mergedFile = __dirname + '\\uploads\\' + files.audio.name.split('.')[0] + '-merged.webm';
-
-  // if a "directory" has space in its name; below command will fail
-  // e.g. "c:\\dir name\\uploads" will fail.
-  // it must be like this: "c:\\dir-name\\uploads"
-  var command = merger + ', ' + audioFile + ' ' + videoFile + ' ' + mergedFile + '';
-  exec(command, function (error, stdout, stderr) {
-    if (error) {
-      console.log(error.stack);
-      console.log('Error code: ' + error.code);
-      console.log('Signal received: ' + error.signal);
-    } else {
-      response.statusCode = 200;
-      response.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      response.end(files.audio.name.split('.')[0] + '-merged.webm');
-
-      unlinkFile(audioFile);
-      unlinkFile(videoFile);
-    }
-  });
-}
-
-
-function ifMac(response, files) {
   // its probably *nix, assume ffmpeg is available
-  var audioFile = __dirname + '/uploads/' + files.audio.name;
-  var videoFile = __dirname + '/uploads/' + files.video.name;
-  var mergedFile = __dirname + '/uploads/' + files.audio.name.split('.')[0] + '-merged.webm';
+  var audioFile = './uploads/' + files.audio.name;
+  var videoFile = './uploads/' + files.video.name;
+  var mergedFile = './uploads/' + files.audio.name.split('.')[0] + '-merged.webm';
 
   var util = require('util'),
     exec = require('child_process').exec;
