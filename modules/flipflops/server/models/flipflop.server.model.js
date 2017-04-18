@@ -19,15 +19,20 @@ var TopicSchema = new Schema({
 });
 
 var FlipflopSchema = new Schema({
-  topic: {
-    type: Schema.ObjectId,
-    ref: 'Topic'
+  links: {
+    pro: {
+      onlyAudio: Boolean,
+      link: { type: String, required: true }
+    },
+    con: {
+      onlyAudio: Boolean,
+      link: { type: String, required: true }
+    }
   },
-  vidlinks: [
-    { type: String, required: true },
-    { type: String, required: true }
-  ],
-  trueview: { type: Number },
+  trueview: {
+    type: String,
+    enum: ['pro', 'con']
+  },
   strength: { type: Number, 'default': 0 },
   bias: { type: Number, 'default': 0 },
   evals: { type: Number, 'default': 0 },

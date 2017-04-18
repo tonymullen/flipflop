@@ -10,7 +10,7 @@ var path = require('path'),
  * Flipflops module init function.
  */
 module.exports = function (app, db) {
-  module.exports.upload_dir = './uploads';
+  module.exports.upload_dir = './public/uploads';
   module.exports.s3 = {
     key: '',
     secret: '',

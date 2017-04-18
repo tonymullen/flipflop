@@ -17,10 +17,6 @@
       bindController: true,
       templateUrl: '/modules/flipflops/client/views/rec-vid.template.html',
       link: function(scope, element, attributes, controller) {
-
-        // console.log(scope.vm.flipflop);
-        // var btnStartRecording = document.querySelector('#btn-start-recording');
-        // var btnStopRecording = document.querySelector('#btn-stop-recording');
         var videoElements = {};
         videoElements.pro = document.querySelector('#provid');
         videoElements.con = document.querySelector('#convid');
@@ -118,11 +114,9 @@
             url: '/api/upload',
             data: JSON.stringify(data)
           }).then(function successCallback(response) {
-            console.log('received response');
-            console.log(response);
+            scope.vm.createFlipFlopDBItem(response.data);
           }, function errorCallback(response) {
-            console.log('fail response');
-            console.log(response);
+            console.log('failed to upload properly');
           });
 
         //   xhr('/api/upload', JSON.stringify(files), function(_fileName) {
@@ -224,10 +218,7 @@
           });
         }
 
-        // btnStartRecording.onclick = function() {
         function startRecording(pro_con) {
-        // btnStartRecording.disabled = true;
-
           captureUserMedia(function(stream) {
             mediaStream = stream;
             videoElements[pro_con].src = window.URL.createObjectURL(stream);

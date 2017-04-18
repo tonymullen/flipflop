@@ -12,9 +12,6 @@
   function FlipflopsController ($rootScope, $scope, $state, $window, $timeout, Authentication, flipflop) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.flipflop = flipflop;
-    vm.flipflop.topic = {};
-    vm.flipflop.topic.statement = 'This is an awesome app!';
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -25,8 +22,13 @@
     vm.done = done;
     vm.startRecording = startRecording;
     vm.stopRecording = stopRecording;
+    vm.createFlipFlopDBItem = createFlipFlopDBItem;
     vm.disable_rec_pro = vm.disable_rec_con = false;
     vm.disable_stp_pro = vm.disable_stp_con = true;
+
+    vm.flipflop = flipflop;
+    vm.flipflop.topic = {};
+    vm.flipflop.topic.statement = 'This is an awesome app!';
 
     function startRecording(pro_con) {
       vm.disable_rec_pro = vm.disable_rec_con = true;
@@ -46,8 +48,8 @@
       vm.disable_stp_pro = vm.disable_stp_con = true;
     }
 
-    function doVideo(pro) {
-      console.log(pro);
+    function doVideo(pro_or_con) {
+      vm.flipflop.trueview = pro_or_con;
       vm.recording = true;
     }
 
@@ -67,16 +69,14 @@
       }
     }
 
+    function createFlipFlopDBItem(data) {
+      vm.flipflop.links = data;
+      vm.flipflop.topic = {};
+      save();
+    }
 
     // Save Flipflop
-    function save(isValid) {
-      console.log('save the flipflops!');
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.flipflopForm');
-        return false;
-      }
-
-      // TODO: move create/update logic to service
+    function save() {
       if (vm.flipflop._id) {
         vm.flipflop.$update(successCallback, errorCallback);
       } else {

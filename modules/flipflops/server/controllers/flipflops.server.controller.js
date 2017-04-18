@@ -19,7 +19,6 @@ var path = require('path'),
 exports.create = function(req, res) {
   var flipflop = new Flipflop(req.body);
   flipflop.user = req.user;
-
   flipflop.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -32,19 +31,25 @@ exports.create = function(req, res) {
 };
 
 exports.upload = function(req, res) {
-  var message = {};
+  var message = {
+    'pro': {},
+    'con': {}
+  };
   ['pro', 'con'].forEach(pc => {
-    _upload(res, req.body[pc].audio);
+    _upload(req.body[pc].audio);
     if (req.body[pc].uploadOnlyAudio) {
-      message[pc] = req.body[pc].audio.name;
+      message[pc].onlyAudio = true;
+      message[pc].link = req.body[pc].audio.name.split('.')[0];
     }
     if (!req.body[pc].uploadOnlyAudio) {
-      _upload(res, req.body[pc].video);
+      _upload(req.body[pc].video);
       merge(res, req.body[pc]);
-      message[pc] = req.body[pc].video.name;
+      message[pc].onlyAudio = false;
+      message[pc].link = req.body[pc].video.name.split('.')[0];
     }
   });
-  res.status(200).send(message);
+  console.log(message);
+  res.jsonp(message);
 };
 
 /**
@@ -136,8 +141,7 @@ exports.delete = function(req, res) {
   });
 };
 
-
-function _upload(response, file) {
+function _upload(file) {
   var fileRootName = file.name.split('.').shift(),
     fileExtension = file.name.split('.').pop(),
     filePathBase = config.upload_dir + '/',
@@ -157,11 +161,11 @@ function _upload(response, file) {
   fs.writeFileSync(filePath, fileBuffer);
 }
 
-function merge(response, files) {
+function merge(res, files) {
   // its probably *nix, assume ffmpeg is available
-  var audioFile = './uploads/' + files.audio.name;
-  var videoFile = './uploads/' + files.video.name;
-  var mergedFile = './uploads/' + files.audio.name.split('.')[0] + '-merged.webm';
+  var audioFile = config.upload_dir + '/' + files.audio.name;
+  var videoFile = config.upload_dir + '/' + files.video.name;
+  var mergedFile = config.upload_dir + '/' + files.audio.name.split('.')[0] + '-merged.webm';
 
   var util = require('util'),
     exec = require('child_process').exec;
@@ -174,14 +178,12 @@ function merge(response, files) {
 
     if (error) {
       console.log('exec error: ' + error);
-      response.statusCode = 404;
-      response.end();
     } else {
-      response.statusCode = 200;
-      response.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      response.end(files.audio.name.split('.')[0] + '-merged.webm');
+      // response.statusCode = 200;
+      // response.writeHead(200, {
+      //   'Content-Type': 'application/json'
+      // });
+      res.jsonp(files.audio.name.split('.')[0] + '-merged.webm');
 
       // removing audio/video files
       unlinkFile(audioFile);
