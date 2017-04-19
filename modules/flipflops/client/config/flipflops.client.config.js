@@ -18,8 +18,16 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'flipflops', {
-      title: 'List Flipflops',
-      state: 'flipflops.list'
+      title: 'My Flipflops',
+      state: 'flipflops.list',
+      roles: ['user']
+    });
+
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'flipflops', {
+      title: 'Judge Flipflops',
+      state: 'judge',
+      roles: ['user']
     });
 
     // Add the dropdown create item

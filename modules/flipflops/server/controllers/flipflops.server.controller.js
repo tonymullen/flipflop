@@ -71,13 +71,11 @@ exports.list = function(req, res) {
  * Flipflop middleware
  */
 exports.flipflopByID = function(req, res, next, id) {
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Flipflop is invalid'
     });
   }
-
   Flipflop.findById(id).populate('user', 'displayName').exec(function (err, flipflop) {
     if (err) {
       return next(err);
@@ -121,6 +119,23 @@ exports.update = function(req, res) {
     } else {
       res.jsonp(flipflop);
     }
+  });
+};
+
+/**
+ * judge
+ */
+
+exports.judge = function(req, res) {
+  Flipflop.findById('58f70028a376dbde069fbf14').populate('user', 'displayName').exec(function (err, flipflop) {
+    if (err) {
+      // empty for now
+    } else if (!flipflop) {
+      return res.status(404).send({
+        message: 'No Flipflop with that identifier has been found'
+      });
+    }
+    res.jsonp(flipflop);
   });
 };
 

@@ -61,6 +61,19 @@
           pageTitle: 'Flipflop {{ flipflopResolve.name }}'
         }
       });
+    $stateProvider
+      .state('judge', {
+        url: '/judge',
+        templateUrl: '/modules/flipflops/client/views/judge-flipflop.client.view.html',
+        controller: 'FlipflopsController',
+        controllerAs: 'vm',
+        resolve: {
+          flipflopResolve: getFlipflopToJudge
+        },
+        data: {
+          pageTitle: 'Flipflop Judgment'
+        }
+      });
   }
 
   getFlipflop.$inject = ['$stateParams', 'FlipflopsService'];
@@ -71,8 +84,12 @@
     }).$promise;
   }
 
-  newFlipflop.$inject = ['FlipflopsService'];
+  getFlipflopToJudge.$inject = ['JudgeFlipflopsService'];
+  function getFlipflopToJudge(JudgeFlipflopsService) {
+    return JudgeFlipflopsService.get({}).$promise;
+  }
 
+  newFlipflop.$inject = ['FlipflopsService'];
   function newFlipflop(FlipflopsService) {
     return new FlipflopsService();
   }

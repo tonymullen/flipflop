@@ -7,17 +7,24 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Flipflop Schema
+ * Topic Schema
  */
 var TopicSchema = new Schema({
   topic: String,
   statement: String,
+  seen: {
+    type: Date,
+    default: Date.now
+  },
   pro: {
     type: String,
     enum: ['left', 'right', 'other']
   }
 });
 
+/**
+ * Flipflop Schema
+ */
 var FlipflopSchema = new Schema({
   links: {
     pro: {
@@ -37,6 +44,10 @@ var FlipflopSchema = new Schema({
   bias: { type: Number, 'default': 0 },
   evals: { type: Number, 'default': 0 },
   created: {
+    type: Date,
+    default: Date.now
+  },
+  seen: {
     type: Date,
     default: Date.now
   },

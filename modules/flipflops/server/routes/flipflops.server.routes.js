@@ -20,6 +20,9 @@ module.exports = function(app) {
   app.route('/api/upload').all(flipflopsPolicy.isAllowed)
     .post(flipflops.upload);
 
+  app.route('/api/judge').all(flipflopsPolicy.isAllowed)
+    .get(flipflops.judge);
+
   // Finish by binding the Flipflop middleware
   app.param('flipflopId', flipflops.flipflopByID);
 };

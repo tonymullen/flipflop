@@ -124,7 +124,11 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
-  }
+  },
+  seenTopics: [{
+    type: Schema.ObjectId,
+    ref: 'Topic'
+  }]
 });
 
 /**
