@@ -19,7 +19,8 @@
     vm.doVideo = doVideo;
     vm.changeTopic = changeTopic;
     vm.recording = false;
-    vm.done = done;
+    vm.doneRecording = doneRecording;
+    vm.doJudge = doJudge;
     vm.startRecording = startRecording;
     vm.stopRecording = stopRecording;
     vm.createFlipFlopDBItem = createFlipFlopDBItem;
@@ -53,12 +54,24 @@
       vm.recording = true;
     }
 
+    function doJudge() {
+      var date = new Date();
+      vm.flipflop.seen = date.toISOString();
+      console.log(vm.flipflop);
+      vm.flipflop.$update(function(response){
+        console.log('updated');
+        $state.go('home');
+      }, function(err){
+        console.log('failed to update');
+      });
+    }
+
     function changeTopic() {
       vm.flipflop.topic = {};
       vm.flipflop.topic.statement = 'Okay, let\'s try another one!';
     }
 
-    function done() {
+    function doneRecording() {
       $rootScope.$broadcast('post-files', {});
       $state.go('home');
     }

@@ -49,7 +49,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/judge',
-      permissions: ['get', 'put']
+      permissions: ['get']
+    },{
+      resources: '/api/judge/:flipflopId',
+      permissions: ['put']
     }]
   }]);
 };

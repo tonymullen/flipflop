@@ -110,8 +110,11 @@ exports.update = function(req, res) {
   var flipflop = req.flipflop;
 
   flipflop = _.extend(flipflop, req.body);
+  console.log(flipflop);
 
   flipflop.save(function(err) {
+    console.log('trying to save');
+    console.log(err);
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -127,16 +130,18 @@ exports.update = function(req, res) {
  */
 
 exports.judge = function(req, res) {
-  Flipflop.findById('58f70028a376dbde069fbf14').populate('user', 'displayName').exec(function (err, flipflop) {
-    if (err) {
-      // empty for now
-    } else if (!flipflop) {
-      return res.status(404).send({
-        message: 'No Flipflop with that identifier has been found'
+  Flipflop.findOne({}, {}, { sort: { 'seen': 1 } })
+    .populate('user', 'displayName')
+      .exec(function (err, flipflop) {
+        if (err) {
+          // empty for now
+        } else if (!flipflop) {
+          return res.status(404).send({
+            message: 'No Flipflop with that identifier has been found'
+          });
+        }
+        res.jsonp(flipflop);
       });
-    }
-    res.jsonp(flipflop);
-  });
 };
 
 /**

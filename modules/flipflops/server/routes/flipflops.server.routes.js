@@ -22,7 +22,10 @@ module.exports = function(app) {
 
   app.route('/api/judge').all(flipflopsPolicy.isAllowed)
     .get(flipflops.judge);
-
+    
+  app.route('/api/judge/:flipflopId').all(flipflopsPolicy.isAllowed)
+    .put(flipflops.update);
+    
   // Finish by binding the Flipflop middleware
   app.param('flipflopId', flipflops.flipflopByID);
 };

@@ -10,7 +10,7 @@
   FlipflopsService.$inject = ['$resource'];
 
   function FlipflopsService($resource) {
-    return $resource('/api/flipflops/:judge:flipflopId', {
+    return $resource('/api/flipflops/:flipflopId', {
       flipflopId: '@_id'
     }, {
       update: {
@@ -21,8 +21,9 @@
 
   JudgeFlipflopsService.$inject = ['$resource'];
   function JudgeFlipflopsService($resource) {
-    return $resource('/api/judge', {
-    }, {
+    return $resource('/api/judge/:flipflopId', {
+      flipflopId: '@_id'
+    },{
       update: {
         method: 'PUT'
       }
