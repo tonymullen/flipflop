@@ -19,11 +19,15 @@
     });
   }
 
+  // This is its own service because it retrieves a
+  // flipflop at the /api/judge url (based on seen value)
+  // but saves it at /api/judge/:flipflopId. We don't know
+  // the id at the time of retrieval.
   JudgeFlipflopsService.$inject = ['$resource'];
   function JudgeFlipflopsService($resource) {
     return $resource('/api/judge/:flipflopId', {
       flipflopId: '@_id'
-    },{
+    }, {
       update: {
         method: 'PUT'
       }

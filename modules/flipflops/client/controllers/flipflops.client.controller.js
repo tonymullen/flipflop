@@ -16,20 +16,23 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-    vm.doVideo = doVideo;
-    vm.changeTopic = changeTopic;
-    vm.recording = false;
-    vm.doneRecording = doneRecording;
-    vm.doJudge = doJudge;
-    vm.startRecording = startRecording;
-    vm.stopRecording = stopRecording;
-    vm.createFlipFlopDBItem = createFlipFlopDBItem;
-    vm.disable_rec_pro = vm.disable_rec_con = false;
-    vm.disable_stp_pro = vm.disable_stp_con = true;
-
     vm.flipflop = flipflop;
     vm.flipflop.topic = {};
     vm.flipflop.topic.statement = 'This is an awesome app!';
+    vm.changeTopic = changeTopic;
+
+    // flip flop recording
+    vm.doVideo = doVideo;
+    vm.createFlipFlopDBItem = createFlipFlopDBItem;
+    vm.startRecording = startRecording;
+    vm.stopRecording = stopRecording;
+    vm.recording = false;
+    vm.doneRecording = doneRecording;
+    vm.disable_rec_pro = vm.disable_rec_con = false;
+    vm.disable_stp_pro = vm.disable_stp_con = true;
+
+    // flip flop judging
+    vm.doJudge = doJudge;
 
     function startRecording(pro_con) {
       vm.disable_rec_pro = vm.disable_rec_con = true;
@@ -57,11 +60,9 @@
     function doJudge() {
       var date = new Date();
       vm.flipflop.seen = date.toISOString();
-      console.log(vm.flipflop);
-      vm.flipflop.$update(function(response){
-        console.log('updated');
+      vm.flipflop.$update(function(response) {
         $state.go('home');
-      }, function(err){
+      }, function(err) {
         console.log('failed to update');
       });
     }

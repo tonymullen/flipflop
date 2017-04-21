@@ -50,7 +50,7 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/judge',
       permissions: ['get']
-    },{
+    }, {
       resources: '/api/judge/:flipflopId',
       permissions: ['put']
     }]
