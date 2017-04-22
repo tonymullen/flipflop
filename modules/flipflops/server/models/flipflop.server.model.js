@@ -54,6 +54,10 @@ var FlipflopSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  topic: {
+    type: Schema.ObjectId,
+    ref: 'Topic'
   }
 });
 

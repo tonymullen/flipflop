@@ -1,0 +1,32 @@
+<div>
+<p>
+{{vm.flipflop._id}}
+{{vm.flipflop.topic.statement}}
+{{vm.flipflop.links.pro.link}}
+</p>
+<div>
+  <video id="provid">
+  <source src="uploads/{{vm.flipflop.links.pro.link}}-merged.webm" type="video/webm">
+  Your browser does not support HTML5 video.
+</video>
+  </video> 
+    <label id="percentage">0%</label>
+    <progress id="progress-bar" value=0></progress><br />
+    <button ng-click="vm.startPlay('pro')" ng-disabled="vm.disable_play_pro">Play</button>
+    <button ng-click="vm.stopPlay('pro')" ng-disabled="vm.disable_stp_pro">Stop</button>
+    <button ng-click="vm.choose('pro')">Choose</button>
+</div>
+<p>
+
+<div>
+<video id="convid">
+  <source src="uploads/{{vm.flipflop.links.con.link}}-merged.webm" type="video/webm">
+  Your browser does not support HTML5 video.
+</video> 
+    <button ng-click="vm.startPlay('con')" ng-disabled="vm.disable_play_con">Play</button>
+    <button ng-click="vm.stopPlay('con')" ng-disabled="vm.disable_stp_con">Stop</button>
+    <button ng-click="vm.choose('con')">Choose</button>
+</div>
+</p>
+    
+</div>

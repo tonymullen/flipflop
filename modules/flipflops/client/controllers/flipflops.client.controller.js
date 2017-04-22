@@ -29,6 +29,8 @@
     vm.doneRecording = doneRecording;
     vm.disable_rec_pro = vm.disable_rec_con = false;
     vm.disable_stp_pro = vm.disable_stp_con = true;
+    vm.startPlay = startPlay;
+    vm.stopPlay = stopPlay;
 
     // flip flop judging
     vm.doJudge = doJudge;
@@ -56,6 +58,17 @@
       vm.recording = true;
     }
 
+    function startPlay(pro_con) {
+      vm.disable_play_pro = vm.disable_play_con = true;
+      $rootScope.$broadcast('play-start-' + pro_con, {});
+    }
+
+    function stopPlay(pro_con) {
+      $rootScope.$broadcast('play-stop-' + pro_con, {});
+      vm.disable_play_pro = vm.disable_play_con = false;
+      vm.disable_stp_pro = vm.disable_stp_con = true;
+    }
+
     function doJudge() {
       var date = new Date();
       vm.flipflop.seen = date.toISOString();
@@ -75,14 +88,10 @@
       $rootScope.$broadcast('post-files', {});
       var date = new Date();
       vm.topic.seen = date.toISOString();
-      console.log('done recording. Here\'s the topic:');
-      console.log(vm.topic);
       vm.topic.$update(function(response) {
-        console.log(response);
         $state.go('home');
       }, function(err) {
         console.log('failed to update topic');
-        console.log(err);
       });
     }
     // Remove existing Flipflop
@@ -94,7 +103,8 @@
 
     function createFlipFlopDBItem(data) {
       vm.flipflop.links = data;
-      vm.flipflop.topic = {};
+      vm.flipflop.topic = vm.topic;
+      console.log(vm.flipflop.topic);
       save();
     }
 
