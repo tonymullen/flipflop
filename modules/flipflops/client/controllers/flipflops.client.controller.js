@@ -7,9 +7,9 @@
     .module('flipflops')
     .controller('FlipflopsController', FlipflopsController);
 
-  FlipflopsController.$inject = ['$rootScope', '$scope', '$state', '$window', '$timeout', 'Authentication', 'flipflopResolve'];
+  FlipflopsController.$inject = ['$rootScope', '$scope', '$state', '$window', '$timeout', 'Authentication', 'flipflopResolve', 'topicResolve'];
 
-  function FlipflopsController ($rootScope, $scope, $state, $window, $timeout, Authentication, flipflop) {
+  function FlipflopsController ($rootScope, $scope, $state, $window, $timeout, Authentication, flipflop, topic) {
     var vm = this;
     vm.authentication = Authentication;
     vm.error = null;
@@ -17,8 +17,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.flipflop = flipflop;
-    vm.flipflop.topic = {};
-    vm.flipflop.topic.statement = 'This is an awesome app!';
+    vm.topic = topic || vm.flipflop.topic;
     vm.changeTopic = changeTopic;
 
     // flip flop recording
@@ -68,13 +67,23 @@
     }
 
     function changeTopic() {
-      vm.flipflop.topic = {};
-      vm.flipflop.topic.statement = 'Okay, let\'s try another one!';
+    //  vm.flipflop.topic = {};
+    //  vm.flipflop.topic.statement = 'Okay, let\'s try another one!';
     }
 
     function doneRecording() {
       $rootScope.$broadcast('post-files', {});
-      $state.go('home');
+      var date = new Date();
+      vm.topic.seen = date.toISOString();
+      console.log('done recording. Here\'s the topic:');
+      console.log(vm.topic);
+      vm.topic.$update(function(response) {
+        console.log(response);
+        $state.go('home');
+      }, function(err) {
+        console.log('failed to update topic');
+        console.log(err);
+      });
     }
     // Remove existing Flipflop
     function remove() {

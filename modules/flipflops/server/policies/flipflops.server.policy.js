@@ -29,6 +29,21 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/flipflops/:flipflopId',
       permissions: ['get']
+    }, {
+      resources: '/api/upload',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/judge',
+      permissions: ['get']
+    }, {
+      resources: '/api/judge/:flipflopId',
+      permissions: ['put']
+    }, {
+      resources: '/api/topic',
+      permissions: ['get']
+    }, {
+      resources: '/api/topic/:topicId',
+      permissions: ['put']
     }]
   }, {
     roles: ['guest'],
@@ -38,21 +53,6 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/flipflops/:flipflopId',
       permissions: ['get']
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/upload',
-      permissions: ['get', 'post']
-    }]
-  }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/judge',
-      permissions: ['get']
-    }, {
-      resources: '/api/judge/:flipflopId',
-      permissions: ['put']
     }]
   }]);
 };

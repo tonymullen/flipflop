@@ -29,7 +29,8 @@
         controller: 'FlipflopsController',
         controllerAs: 'vm',
         resolve: {
-          flipflopResolve: newFlipflop
+          flipflopResolve: newFlipflop,
+          topicResolve: getTopic
         },
         data: {
           roles: ['user', 'admin'],
@@ -42,7 +43,8 @@
         controller: 'FlipflopsController',
         controllerAs: 'vm',
         resolve: {
-          flipflopResolve: getFlipflop
+          flipflopResolve: getFlipflop,
+          topicResolve: leaveTopicToTheFlipFlop
         },
         data: {
           roles: ['user', 'admin'],
@@ -55,7 +57,8 @@
         controller: 'FlipflopsController',
         controllerAs: 'vm',
         resolve: {
-          flipflopResolve: getFlipflop
+          flipflopResolve: getFlipflop,
+          topicResolve: leaveTopicToTheFlipFlop
         },
         data: {
           pageTitle: 'Flipflop {{ flipflopResolve.name }}'
@@ -68,7 +71,8 @@
         controller: 'FlipflopsController',
         controllerAs: 'vm',
         resolve: {
-          flipflopResolve: getFlipflopToJudge
+          flipflopResolve: getFlipflopToJudge,
+          topicResolve: leaveTopicToTheFlipFlop
         },
         data: {
           pageTitle: 'Flipflop Judgment'
@@ -77,11 +81,19 @@
   }
 
   getFlipflop.$inject = ['$stateParams', 'FlipflopsService'];
-
   function getFlipflop($stateParams, FlipflopsService) {
     return FlipflopsService.get({
       flipflopId: $stateParams.flipflopId
     }).$promise;
+  }
+
+  getTopic.$inject = ['TopicService'];
+  function getTopic(TopicService) {
+    return TopicService.get({}).$promise;
+  }
+
+  function leaveTopicToTheFlipFlop() {
+    return null;
   }
 
   getFlipflopToJudge.$inject = ['JudgeFlipflopsService'];

@@ -5,10 +5,10 @@
   angular
     .module('flipflops')
     .factory('FlipflopsService', FlipflopsService)
-    .factory('JudgeFlipflopsService', JudgeFlipflopsService);
+    .factory('JudgeFlipflopsService', JudgeFlipflopsService)
+    .factory('TopicService', TopicService);
 
   FlipflopsService.$inject = ['$resource'];
-
   function FlipflopsService($resource) {
     return $resource('/api/flipflops/:flipflopId', {
       flipflopId: '@_id'
@@ -27,6 +27,17 @@
   function JudgeFlipflopsService($resource) {
     return $resource('/api/judge/:flipflopId', {
       flipflopId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+
+  TopicService.$inject = ['$resource'];
+  function TopicService($resource) {
+    return $resource('/api/topic/:topicId', {
+      topicId: '@_id'
     }, {
       update: {
         method: 'PUT'

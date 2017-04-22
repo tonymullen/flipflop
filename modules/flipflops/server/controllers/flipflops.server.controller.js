@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Flipflop = mongoose.model('Flipflop'),
+  Topic = mongoose.model('Topic'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   fs = require('fs'),
@@ -48,7 +49,6 @@ exports.upload = function(req, res) {
       message[pc].link = req.body[pc].video.name.split('.')[0];
     }
   });
-  console.log(message);
   res.jsonp(message);
 };
 
@@ -90,6 +90,28 @@ exports.flipflopByID = function(req, res, next, id) {
 };
 
 /**
+ * Topic middleware
+ */
+exports.topicByID = function(req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Topic is invalid'
+    });
+  }
+  Topic.findById(id).exec(function (err, topic) {
+    if (err) {
+      return next(err);
+    } else if (!topic) {
+      return res.status(404).send({
+        message: 'No Topic with that identifier has been found'
+      });
+    }
+    req.topic = topic;
+    next();
+  });
+};
+
+/**
  * Show the current Flipflop
  */
 exports.read = function(req, res) {
@@ -113,14 +135,32 @@ exports.update = function(req, res) {
   console.log(flipflop);
 
   flipflop.save(function(err) {
-    console.log('trying to save');
-    console.log(err);
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
       res.jsonp(flipflop);
+    }
+  });
+};
+
+/**
+ * Update a Flipflop
+ */
+exports.updateTopic = function(req, res) {
+  var topic = req.topic;
+  topic = _.extend(topic, req.body);
+  console.log(topic);
+
+  topic.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log('updated topic');
+      res.jsonp(topic);
     }
   });
 };
@@ -134,13 +174,31 @@ exports.judge = function(req, res) {
     .populate('user', 'displayName')
       .exec(function (err, flipflop) {
         if (err) {
-          // empty for now
+          console.log(err);
         } else if (!flipflop) {
           return res.status(404).send({
             message: 'No Flipflop with that identifier has been found'
           });
         }
         res.jsonp(flipflop);
+      });
+};
+
+/**
+ * fetch topipc by seen value
+ */
+
+exports.fetchTopic = function(req, res) {
+  Topic.findOne({}, {}, { sort: { 'seen': 1 } })
+      .exec(function (err, topic) {
+        if (err) {
+          console.log(err);
+        } else if (!topic) {
+          return res.status(404).send({
+            message: 'No Topic with that identifier has been found'
+          });
+        }
+        res.jsonp(topic);
       });
 };
 
@@ -203,7 +261,7 @@ function merge(res, files) {
       // response.writeHead(200, {
       //   'Content-Type': 'application/json'
       // });
-      res.jsonp(files.audio.name.split('.')[0] + '-merged.webm');
+      // res.jsonp(files.audio.name.split('.')[0] + '-merged.webm');
 
       // removing audio/video files
       unlinkFile(audioFile);
