@@ -7,24 +7,26 @@
 <div class="videos">
   <div class="vidcontainer">
   <video id="provid" class="provid">
-  <source src="uploads/{{vm.flipflop.links.pro.link}}-merged.webm" type="video/webm">
+  <source src="uploads/{{vm.flipflop.links.pro.link}}-merged.webm#t=0.1" type="video/webm">
   Your browser does not support HTML5 video.
   </video> 
-    <label id="percentage">0%</label>
-    <progress id="progress-bar" value=0></progress><br/>
-    <button ng-click="vm.startPlay('pro')" ng-disabled="vm.disable_play_pro">Play</button>
-    <button ng-click="vm.stopPlay('pro')" ng-disabled="vm.disable_stp_pro">Stop</button>
-    <button ng-click="vm.choose('pro')">Choose</button>
+    <progress id="progress-bar" class="pro progress-bar" value=0></progress><br/>
+    <div class="pro playIcon">
+      <i ng-click="vm.startPlay('pro')" ng-disabled="vm.disable_play_pro" class="pro fa fa-play-circle-o fa-3x"></i>
+      <i ng-click="vm.stopPlay('pro')" ng-disabled="vm.disable_stp_pro" class="pro fa fa-stop-circle-o fa-3x"></i>
+    </div>
 </div>
 
 <div class="vidcontainer">
 <video id="convid" class="convid">
-  <source src="uploads/{{vm.flipflop.links.con.link}}-merged.webm" type="video/webm">
+  <source src="uploads/{{vm.flipflop.links.con.link}}-merged.webm#t=0.1" type="video/webm">
   Your browser does not support HTML5 video.
-</video> 
-    <button ng-click="vm.startPlay('con')" ng-disabled="vm.disable_play_con">Play</button>
-    <button ng-click="vm.stopPlay('con')" ng-disabled="vm.disable_stp_con">Stop</button>
-    <button ng-click="vm.choose('con')">Choose</button>
+</video>
+    <progress id="progress-bar" class="con progress-bar" value=0></progress><br/>
+    <div class="pro playIcon">
+      <i ng-click="vm.startPlay('con')" ng-disabled="vm.disable_play_con" class="con fa fa-play-circle-o fa-3x"></i>
+      <i ng-click="vm.stopPlay('con')" ng-disabled="vm.disable_stp_con" class="con fa fa-stop-circle-o fa-3x"></i>
+    </div>
 </div>
 </div>
 </p>

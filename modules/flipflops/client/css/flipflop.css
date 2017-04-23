@@ -56,3 +56,15 @@ video.convid {
 .top-btn {
 	width: 100%;
 }
+
+i.fa {
+  left: 10px;
+  margin-left: 10px;
+  position: relative;
+  z-index: 100;
+}
+
+div.playIcon {
+  top: 40px;
+  position: absolute;
+}
