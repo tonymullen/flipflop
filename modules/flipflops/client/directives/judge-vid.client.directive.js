@@ -31,6 +31,9 @@
 
         scope.$on('play-start-pro', function(event, data) {
           startPlay('pro');
+          videoElements.pro.addEventListener('ended', function() {
+            console.log('pro video ended');
+          }, false);
         });
 
         scope.$on('play-start-con', function(event, data) {
@@ -75,7 +78,7 @@
         }
 
         function stopPlay(pro_con) {
-
+          videoElements[pro_con].stop();
         }
 
       }

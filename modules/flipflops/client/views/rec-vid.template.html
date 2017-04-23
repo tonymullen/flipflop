@@ -2,8 +2,9 @@
 <p>
 {{ vm.flipflop.topic.statement }}    
 </p>
-<div>
-  <video id="provid"></video> 
+<div class="videos">
+<div class="vidcontainer">
+  <video id="provid" class="provid"></video> 
     <label id="percentage">0%</label>
     <progress id="progress-bar" value=0></progress><br />
     <button ng-click="vm.startRecording('pro')" ng-disabled="vm.disable_rec_pro">Start Recording</button>
@@ -11,10 +12,11 @@
 </div>
 <p>
 
-<div>
-<video id="convid"></video> 
+<div class="vidcontainer">
+<video id="convid" class="convid"></video> 
     <button ng-click="vm.startRecording('con')" ng-disabled="vm.disable_rec_con">Start Recording</button>
     <button ng-click="vm.stopRecording('con')" ng-disabled="vm.disable_stp_con">Stop Recording</button>
+</div>
 </div>
 </p>
     

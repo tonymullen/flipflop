@@ -59,14 +59,14 @@
     }
 
     function startPlay(pro_con) {
-      vm.disable_play_pro = vm.disable_play_con = true;
+      // vm.disable_play_pro = vm.disable_play_con = true;
       $rootScope.$broadcast('play-start-' + pro_con, {});
     }
 
     function stopPlay(pro_con) {
       $rootScope.$broadcast('play-stop-' + pro_con, {});
-      vm.disable_play_pro = vm.disable_play_con = false;
-      vm.disable_stp_pro = vm.disable_stp_con = true;
+      // vm.disable_play_pro = vm.disable_play_con = false;
+      // vm.disable_stp_pro = vm.disable_stp_con = true;
     }
 
     function doJudge() {
