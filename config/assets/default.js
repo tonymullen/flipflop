@@ -11,6 +11,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.css',
+        'public/lib/angularjs-slider/dist/rzslider.css',
         // endbower
       ],
       js: [
@@ -26,6 +27,7 @@ module.exports = {
         'public/lib/ng-file-upload/ng-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/recordrtc/RecordRTC.js',
+        'public/lib/angularjs-slider/dist/rzslider.js',
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

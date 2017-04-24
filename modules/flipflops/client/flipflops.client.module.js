@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('flipflops');
+  app.registerModule('flipflops', ['rzModule']);
 }(ApplicationConfiguration));

@@ -84,7 +84,6 @@
             type: pro.audio.blob.type,
             contents: pro.audio.dataURL
           };
-          console.log(con.audio);
           data.con.audio = {
             name: fileName + '_con.' + con.audio.blob.type.split('/')[1], // MUST be wav or ogg
             type: con.audio.blob.type,

@@ -2,8 +2,9 @@ html { background-color: OldLace; }
 
 body {
   border: 1px solid rgb(15, 158, 238);
-  margin: 1% 10%;
-  padding: 15px;
+  /*margin: 1% 10%;
+  padding: 15px;*/
+  padding-bottom: 15px;
   text-align: center;
 }
 
@@ -59,7 +60,7 @@ video.convid {
 }
 
 div.playIconsContainer {
-  left: -100px;
+  left: -130px;
   position: relative;
   top: -220px;  
 }
@@ -103,4 +104,41 @@ i.playRecIcons:active {
 
 .glyphicon-remove-circle {
   color:rgb(255,0,0);
+}
+
+span.rz-bubble {
+  display: none;
+}
+
+span.rz-pointer:focus {
+  outline:0;
+}
+
+.rzslider .rz-bar {
+  height: 10px;
+}
+
+.rzslider .rz-bar-wrapper {
+  margin-top: -18px;
+}
+
+div.fit-content {
+  margin: auto;
+  width: fit-content;
+}
+
+.rzslider .rz-selection {
+  background: #888888;
+}
+
+.rz-bar {
+  background: #bbbbbb;
+}
+
+.rzslider .rz-pointer {
+  background-color: #888888;
+}
+
+.rzslider .rz-pointer.rz-active:after {
+  background-color: #ffffff;
 }

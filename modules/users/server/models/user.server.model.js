@@ -128,6 +128,10 @@ var UserSchema = new Schema({
   seenTopics: [{
     type: Schema.ObjectId,
     ref: 'Topic'
+  }],
+  judgedFlipflops: [{
+    type: Schema.ObjectId,
+    ref: 'Flipflop'
   }]
 });
 

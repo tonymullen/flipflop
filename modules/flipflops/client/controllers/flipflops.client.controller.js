@@ -35,10 +35,18 @@
 
     // flip flop judging
     vm.doJudge = doJudge;
-    vm.pro = { selected: false };
-    vm.con = { selected: false };
-    vm.playing = false;
+    vm.pro = { selected: false, playing: false };
+    vm.con = { selected: false, playing: false };
     vm.select = select;
+    $scope.slider = {
+      options: {
+        floor: 0,
+        ceil: 100
+      }
+    };
+    $scope.slider.min = 25;
+    $scope.slider.max = 100 - $scope.slider.min;
+    
 
     function startRecording(pro_con) {
       vm.disable_rec_pro = vm.disable_rec_con = true;
@@ -65,13 +73,15 @@
       vm.recordView = true;
     }
 
-    function startPlay(pro_con) {
+    function startPlay(pro_or_con) {
       // vm.disable_play_pro = vm.disable_play_con = true;
-      $rootScope.$broadcast('play-start-' + pro_con, {});
+      $rootScope.$broadcast('play-start-' + pro_or_con, {});
+      vm[pro_or_con].playing = true;
     }
 
-    function stopPlay(pro_con) {
-      $rootScope.$broadcast('play-stop-' + pro_con, {});
+    function stopPlay(pro_or_con) {
+      $rootScope.$broadcast('play-stop-' + pro_or_con, {});
+      vm[pro_or_con].playing = false;
       // vm.disable_play_pro = vm.disable_play_con = false;
       // vm.disable_stp_pro = vm.disable_stp_con = true;
     }
@@ -85,7 +95,7 @@
         console.log('failed to update');
       });
     }
-    
+
     function select(pro_or_con) {
       vm.pro.selected = pro_or_con === 'pro';
       vm.con.selected = pro_or_con === 'con';
@@ -116,7 +126,6 @@
     function createFlipFlopDBItem(data) {
       vm.flipflop.links = data;
       vm.flipflop.topic = vm.topic;
-      console.log(vm.flipflop.topic);
       save();
     }
 
@@ -129,9 +138,7 @@
       }
 
       function successCallback(res) {
-        $state.go('flipflops.view', {
-          flipflopId: res._id
-        });
+        $state.go('home');
       }
 
       function errorCallback(res) {

@@ -78,7 +78,7 @@
         }
 
         function stopPlay(pro_con) {
-          videoElements[pro_con].stop();
+          videoElements[pro_con].pause();
         }
 
       }
