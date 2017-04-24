@@ -1,5 +1,5 @@
 <section>
-  <div ng-if="!vm.recording">
+  <div ng-if="!vm.recordView">
     <div class="page-header">
       <p>
         Do you agree with this statement?
@@ -14,9 +14,8 @@
     <button ng-click="vm.changeTopic('pro')" class="btn btn-warning">I don\'t know</button>  
   </div>
   
-  <div ng-if="vm.recording">  
-    <h1>Record your flip flops</h1>
-    {{vm.flipflop.topic.statement}}
+  <div ng-if="vm.recordView">  
+    {{vm.topic.statement}}
     <div class="col-md-12">
       <recvid></recvid>
         <button ng-click="vm.doneRecording()" class="btn btn-default">Done</button>  

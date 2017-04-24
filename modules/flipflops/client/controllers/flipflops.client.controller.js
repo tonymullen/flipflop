@@ -25,7 +25,8 @@
     vm.createFlipFlopDBItem = createFlipFlopDBItem;
     vm.startRecording = startRecording;
     vm.stopRecording = stopRecording;
-    vm.recording = false;
+    vm.recordView = false;
+    vm.recording = { pro: false, con: false };
     vm.doneRecording = doneRecording;
     vm.disable_rec_pro = vm.disable_rec_con = false;
     vm.disable_stp_pro = vm.disable_stp_con = true;
@@ -34,6 +35,10 @@
 
     // flip flop judging
     vm.doJudge = doJudge;
+    vm.pro = { selected: false };
+    vm.con = { selected: false };
+    vm.playing = false;
+    vm.select = select;
 
     function startRecording(pro_con) {
       vm.disable_rec_pro = vm.disable_rec_con = true;
@@ -44,18 +49,20 @@
         vm.disable_stp_pro = true;
         vm.disable_stp_con = false;
       }
+      vm.recording[pro_con] = true;
       $rootScope.$broadcast('rec-start-' + pro_con, {});
     }
 
     function stopRecording(pro_con) {
       $rootScope.$broadcast('rec-stop-' + pro_con, {});
+      vm.recording[pro_con] = false;
       vm.disable_rec_pro = vm.disable_rec_con = false;
       vm.disable_stp_pro = vm.disable_stp_con = true;
     }
 
     function doVideo(pro_or_con) {
       vm.flipflop.trueview = pro_or_con;
-      vm.recording = true;
+      vm.recordView = true;
     }
 
     function startPlay(pro_con) {
@@ -77,6 +84,11 @@
       }, function(err) {
         console.log('failed to update');
       });
+    }
+    
+    function select(pro_or_con) {
+      vm.pro.selected = pro_or_con === 'pro';
+      vm.con.selected = pro_or_con === 'con';
     }
 
     function changeTopic() {

@@ -28,9 +28,10 @@ button[disabled], input[disabled] {
 
 .vidcontainer {
   border: 1px solid LightSlateGray;
-  margin: 0 5px 0 5px;
+  margin: 5px 5px 10px 5px;
   overflow: hidden;
   width: 300px;
+  height: 230px;
 }
 
 .videos {
@@ -57,14 +58,49 @@ video.convid {
 	width: 100%;
 }
 
-i.fa {
+div.playIconsContainer {
+  left: -100px;
+  position: relative;
+  top: -220px;  
+}
+
+div.checkIconsContainer {
+  position: relative;
+  bottom: 200px;  
+}
+
+i.playRecIcons {
   left: 10px;
   margin-left: 10px;
   position: relative;
   z-index: 100;
 }
 
-div.playIcon {
-  top: 40px;
-  position: absolute;
+i.playRecIcons:hover { 
+  color: DimGray;
+}
+
+i.playRecIcons:active { 
+  color: gray;
+}
+
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+.glyphicon-ok-sign, .glyphicon-remove-sign {
+  color:rgba(120,120,120,0.5);
+}
+
+.glyphicon-ok-sign:hover, .glyphicon-remove-sign:hover {
+  color:rgba(230,230,230,0.5);
+}
+
+.glyphicon-ok-circle {
+  color:rgb(0,255,0);
+}
+
+.glyphicon-remove-circle {
+  color:rgb(255,0,0);
 }

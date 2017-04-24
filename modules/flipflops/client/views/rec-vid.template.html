@@ -4,18 +4,35 @@
 </p>
 <div class="videos">
 <div class="vidcontainer">
-  <video id="provid" class="provid"></video> 
+  <video id="provid" class="provid" poster="/modules/flipflops/client/img/poster.jpg"></video> 
+    <div class="pro playIconsContainer">
+    <i ng-click="vm.startRecording('pro')" ng-disabled="vm.disable_stp_pro" ng-hide="vm.recording.pro"
+      class="playRecIcons pro fa fa-dot-circle-o fa-3x"></i>
+    <i ng-click="vm.stopRecording('pro')" ng-disabled="vm.disable_stp_pro" ng-show="vm.recording.pro"
+      class="playRecIcons pro fa fa-stop-circle-o fa-3x"></i>
+    </div>
     <label id="percentage">0%</label>
-    <progress id="progress-bar" value=0></progress><br />
+    <progress id="progress-bar" value=0></progress>
+    <!--
     <button ng-click="vm.startRecording('pro')" ng-disabled="vm.disable_rec_pro">Start Recording</button>
     <button ng-click="vm.stopRecording('pro')" ng-disabled="vm.disable_stp_pro">Stop Recording</button>
+    -->
 </div>
 <p>
 
 <div class="vidcontainer">
-<video id="convid" class="convid"></video> 
-    <button ng-click="vm.startRecording('con')" ng-disabled="vm.disable_rec_con">Start Recording</button>
-    <button ng-click="vm.stopRecording('con')" ng-disabled="vm.disable_stp_con">Stop Recording</button>
+<video id="convid" class="convid" poster="/modules/flipflops/client/img/poster.jpg"></video> 
+<div class="con playIconsContainer">
+<i ng-click="vm.startRecording('con')" ng-disabled="vm.disable_stp_con" ng-hide="vm.recording.con"
+  class="playRecIconscon con fa fa-dot-circle-o fa-3x"></i>
+<i ng-click="vm.stopRecording('con')" ng-disabled="vm.disable_stp_con" ng-show="vm.recording.con"
+  class="playRecIcons con fa fa-stop-circle-o fa-3x"></i>
+</div>
+<label id="percentage">0%</label>
+<progress id="progress-bar" value=0></progress>
+<!--
+  <button ng-click="vm.stopRecording('con')" ng-disabled="vm.disable_stp_con">Stop Recording</button>
+-->
 </div>
 </div>
 </p>
