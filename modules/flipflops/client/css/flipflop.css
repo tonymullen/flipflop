@@ -1,8 +1,9 @@
-html { background-color: OldLace; }
+html {  }
 
 body {
-  border: 1px solid rgb(15, 158, 238);
-  /*margin: 1% 10%;
+  background-color: DarkSlateGray;
+  /*border: 1px solid rgb(15, 158, 238);
+  margin: 1% 10%;
   padding: 15px;*/
   padding-bottom: 15px;
   text-align: center;
@@ -106,6 +107,24 @@ i.playRecIcons:active {
   color:rgb(255,0,0);
 }
 
+span.prospan {
+  position: relative;
+  top: -200px;
+  left: 20px;
+  font-size: 5em;
+  font-weight: 900;
+  color: rgba(0, 255, 0, 0.2);
+}
+
+span.conspan {
+  position: relative;
+  top: -200px;
+  left: 20px;
+  font-size: 5em;
+  font-weight: 900;
+  color: rgba(255, 0, 0, 0.2);
+}
+
 span.rz-bubble {
   display: none;
 }
@@ -115,7 +134,7 @@ span.rz-pointer:focus {
 }
 
 .rzslider .rz-bar {
-  height: 10px;
+  height: 8px;
 }
 
 .rzslider .rz-bar-wrapper {
@@ -128,7 +147,7 @@ div.fit-content {
 }
 
 .rzslider .rz-selection {
-  background: #888888;
+  background: -webkit-linear-gradient(left, rgb(159, 159, 159), rgb(96, 96, 96));
 }
 
 .rz-bar {
@@ -139,6 +158,23 @@ div.fit-content {
   background-color: #888888;
 }
 
+
 .rzslider .rz-pointer.rz-active:after {
-  background-color: #ffffff;
+  background: DarkSlateGray;
+  background-color: DarkSlateGray;
+  border-radius: 11px;
+  height: 22px;
+  left: 5px;
+  top: 5px;
+  width: 22px;
+}
+
+.rzslider .rz-pointer:after {
+  background: DarkSlateGray;
+  background-color: DarkSlateGray;
+  border-radius: 11px;
+  height: 22px;
+  left: 5px;
+  top: 5px;
+  width: 22px;
 }

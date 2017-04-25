@@ -9,7 +9,6 @@ module.exports = {
         // bower:css
         'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/angularjs-slider/dist/rzslider.css',
         // endbower
