@@ -5,42 +5,55 @@
   rz-slider-options="slider.options">
 </rzslider>
 <div class="videos">
-  <div class="vidcontainer">
-  <video id="provid" class="provid">
-  <source src="uploads/{{vm.flipflop.links.pro.link}}-merged.webm#t=0.1" type="video/webm">
-  Your browser does not support HTML5 video.
-  </video> 
+  <div class="vidWithProgress">
+    <div class="vidcontainer">
+      <video id="provid" class="provid">
+        <source src="uploads/{{vm.flipflop.links.pro.link}}-merged.webm#t=0.1" type="video/webm">
+          Your browser does not support HTML5 video.
+        </video>
     <div class="pro playIconsContainer">
-      <i ng-click="vm.startPlay('pro')" ng-disabled="vm.disable_play_pro" ng-hide="vm.pro.playing" class="playRecIcons pro fa fa-play-circle-o gi-3x"></i>
-      <i ng-click="vm.stopPlay('pro')" ng-disabled="vm.disable_stp_pro" ng-show="vm.pro.playing" class="playRecIcons pro fa fa-stop-circle-o fa-3x"></i>
+    <i ng-click="vm.startPlay('pro')" ng-disabled="vm.disable_play_pro" ng-hide="vm.pro.playing" class="playRecIcons pro fa fa-play-circle-o gi-3x"></i>
+    <i ng-click="vm.stopPlay('pro')" ng-disabled="vm.disable_stp_pro" ng-show="vm.pro.playing" class="playRecIcons pro fa fa-stop-circle-o fa-3x"></i>
+  </div>
+    <div class="pro checkIconsContainer" style="display: none;">
+      <i ng-click="vm.select('pro')" ng-hide="vm.pro.selected" class="pro glyphicon glyphicon-ok-sign gi-5x"></i>
+      <i ng-show="vm.pro.selected" class="pro glyphicon glyphicon-ok-circle gi-5x"></i>
+      <i ng-click="vm.select('con')" ng-hide="vm.con.selected" class="pro glyphicon glyphicon-remove-sign gi-5x"></i>
+      <i ng-click="" ng-show="vm.con.selected" class="pro glyphicon glyphicon-remove-circle gi-5x"></i>
     </div>
-    <progress id="progress-bar" class="pro progress-bar" value=0></progress><br/>
-    <div class="pro checkIconsContainer">
-    <i ng-click="vm.select('pro')" ng-hide="vm.pro.selected" class="pro glyphicon glyphicon-ok-sign gi-5x"></i>
-    <i ng-show="vm.pro.selected" class="pro glyphicon glyphicon-ok-circle gi-5x"></i>
-    
-    <i ng-click="vm.select('con')" ng-hide="vm.con.selected" class="pro glyphicon glyphicon-remove-sign gi-5x"></i>
-    <i ng-click="" ng-show="vm.con.selected" class="pro glyphicon glyphicon-remove-circle gi-5x"></i>
-    </div>
+  </div>
+<div class="pro progress">
+  <div id="proProgress" class="pro progress-bar" role="progressbar" aria-valuenow="0"
+    aria-valuemin="0" aria-valuemax="100" style="width:0%">
+  </div>
+</div>
 </div>
 
+<div class="vidWithProgress">
 <div class="vidcontainer">
 <video id="convid" class="convid">
   <source src="uploads/{{vm.flipflop.links.con.link}}-merged.webm#t=0.1" type="video/webm">
   Your browser does not support HTML5 video.
-</video>
+  </video>
     <div class="pro playIconsContainer">
       <i ng-click="vm.startPlay('con')" ng-disabled="vm.disable_play_con" ng-hide="vm.con.playing" class="playRecIcons con fa fa-play-circle-o gi-3x"></i>
       <i ng-click="vm.stopPlay('con')" ng-disabled="vm.disable_stp_con" ng-show="vm.con.playing" class="playRecIcons con fa fa-stop-circle-o fa-3x"></i>
     </div>
-    <progress id="progress-bar" class="con progress-bar" value=0></progress><br/>
-    <div class="con checkIconsContainer">
+    <div class="con checkIconsContainer" style="display: none;">
     <i ng-click="vm.select('con')" ng-hide="vm.con.selected" class="con glyphicon glyphicon-ok-sign gi-5x"></i>
     <i ng-show="vm.con.selected" class="con glyphicon glyphicon-ok-circle gi-5x"></i>
     
     <i ng-click="vm.select('pro')" ng-hide="vm.pro.selected" class="con glyphicon glyphicon-remove-sign gi-5x"></i>
     <i ng-show="vm.pro.selected" class="con glyphicon glyphicon-remove-circle gi-5x"></i>
-    </div>
+  </div>
+</div>
+
+<div class="con progress">
+  <div id="conProgress" class="con progress-bar" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+  </div>
 </div>
 </div>
 </div>
+</div>
+

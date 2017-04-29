@@ -2,11 +2,49 @@ html {  }
 
 body {
   background-color: DarkSlateGray;
+  color: white;
   /*border: 1px solid rgb(15, 158, 238);
   margin: 1% 10%;
   padding: 15px;*/
   padding-bottom: 15px;
   text-align: center;
+}
+
+.jumbotron {
+  margin: 20px;
+}
+
+@media screen and (min-width: 700px) {
+    .videos {
+      display: inline-flex;
+    }
+}
+@media screen and (max-width: 700px) {
+    p {
+        margin: auto;
+        width: 300px;
+    }
+}
+
+.content {
+  margin-top: 70px;
+}
+
+p {
+  color: white;
+  font-family: 'Archivo Narrow', sans-serif;
+  /*
+  font-family: 'Oswald', sans-serif;
+  */
+  font-style: bold;
+}
+
+p.lead {
+  color: DarkSlateGray;
+}
+
+h1 {
+  color: white;
 }
 
 hr {
@@ -15,11 +53,11 @@ hr {
 }
 
 a {
-  color: #2844FA;
+  color: gray;
   text-decoration: none;
 }
 
-a:hover, a:focus { color: #1B29A4; }
+a:hover, a:focus { color: lightgray; }
 
 a:active { color: #000; }
 
@@ -34,10 +72,6 @@ button[disabled], input[disabled] {
   overflow: hidden;
   width: 300px;
   height: 230px;
-}
-
-.videos {
-  display: inline-flex;
 }
 
 video {
@@ -57,7 +91,7 @@ video.convid {
 }
 
 .top-btn {
-	width: 100%;
+	width: 80%;
 }
 
 div.playIconsContainer {
@@ -177,4 +211,9 @@ div.fit-content {
   left: 5px;
   top: 5px;
   width: 22px;
+}
+
+div .progress {
+  width: 90%;
+  margin: 0 auto 10px auto;
 }

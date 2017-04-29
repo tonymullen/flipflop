@@ -12,32 +12,53 @@
   judgeVidDirective.$inject = ['$http'];
 
   function judgeVidDirective($http) {
-    console.log('hi there!');
     return {
       restrict: 'E',
-      bindController: true,
       templateUrl: '/modules/flipflops/client/views/judge-vid.template.html',
       link: function(scope, element, attributes, controller) {
         var videoElements = {};
         videoElements.pro = document.querySelector('#provid');
         videoElements.con = document.querySelector('#convid');
-        // var videoProElement = document.querySelector('#provid');
-        // var videoConElement = document.querySelector('#convid');
-        var progressBar = document.querySelector('#progress-bar');
-        var percentage = document.querySelector('#percentage');
+        var progress = {};
+        progress.pro = document.querySelector('#proProgress');
+        progress.con = document.querySelector('#conProgress');
+        var seen = {};
+        seen.pro = false;
+        seen.con = false;
+
         var currentBrowser = !!navigator.mozGetUserMedia ? 'gecko' : 'chromium';
         var fileName;
         var mediaStream = null;
 
-        scope.$on('play-start-pro', function(event, data) {
-          startPlay('pro');
-          videoElements.pro.addEventListener('ended', function() {
+        function playVid (pro_or_con) {
+          startPlay(pro_or_con);
+          var vid = videoElements[pro_or_con];
+          var prog = progress[pro_or_con];
+          vid.addEventListener('ended', function() {
+            seen[pro_or_con] = true;
+            if (seen[other(pro_or_con)]) {
+              document.querySelectorAll('.checkIconsContainer').forEach(el => {
+                el.style.display = 'inline';
+              });
+            }
             console.log('pro video ended');
           }, false);
+          vid.addEventListener('timeupdate', function() {
+            var pct = Math.floor((100 / vid.duration) * vid.currentTime);
+            prog.style.width = pct + '%';
+          }, false);
+        }
+
+        function other(p_or_c) {
+          return p_or_c === 'pro' ? 'con' : 'pro'; 
+        }
+
+        scope.$on('play-start-pro', function(event, data) {
+          playVid('pro');
         });
 
         scope.$on('play-start-con', function(event, data) {
-          startPlay('con');
+          playVid('con');
         });
 
         scope.$on('play-stop-pro', function(event, data) {
@@ -70,9 +91,11 @@
 
         }
 
+
         function startPlay(pro_con) {
           // videoElements[pro_con].src = window.URL.createObjectURL(stream);
           videoElements[pro_con].play();
+          console.log('playing');
           // videoElements[pro_con].muted = true;
           // videoElements[pro_con].controls = false;
         }

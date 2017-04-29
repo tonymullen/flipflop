@@ -78,6 +78,14 @@
           pageTitle: 'Flipflop Judgment'
         }
       });
+    $stateProvider
+      .state('stats', {
+        url: '/stats',
+        templateUrl: '/modules/flipflops/client/views/stats.client.view.html',
+        data: {
+          pageTitle: 'My Stats'
+        }
+      });
   }
 
   getFlipflop.$inject = ['$stateParams', 'FlipflopsService'];

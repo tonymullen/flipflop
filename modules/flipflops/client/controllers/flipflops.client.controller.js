@@ -47,29 +47,28 @@
         step: 1,
         noSwitching: true,
         getPointerColor: function(value) {
-            if (value <= 0)
-                return '#ffffff';
-            if (value <= 1)
-                return '#DFDFDF';
-            if (value <= 2)
-                return '#BEBEBE';
-            if (value <= 3)
-                return '#9F9F9F';
-            if (value <= 4)
-                return '#808080';
-            if (value <= 5)
-                return '#808080';
-            if (value <= 6)
-                return '#808080';
-            if (value <= 7)
-                return '#606060';
-            if (value <= 8)
-                return '#404040';
-            if (value <= 9)
-                return '#202020';
-            if (value <= 10)
-                return '#000000';
-            return '#2AE02A';
+          if (value <= 0)
+            return '#ffffff';
+          if (value <= 1)
+            return '#DFDFDF';
+          if (value <= 2)
+            return '#BEBEBE';
+          if (value <= 3)
+            return '#9F9F9F';
+          if (value <= 4)
+            return '#808080';
+          if (value <= 5)
+            return '#808080';
+          if (value <= 6)
+            return '#808080';
+          if (value <= 7)
+            return '#606060';
+          if (value <= 8)
+            return '#404040';
+          if (value <= 9)
+            return '#202020';
+          if (value <= 10)
+            return '#000000';
         },
         onChange: function(sliderId, modelValue, highValue, pointerType) {
           if (pointerType === 'min') {
@@ -77,17 +76,12 @@
           } else {
             $scope.slider.min = 10 - $scope.slider.max;
           }
-          dark = Math.ceil($scope.slider.min * (127/4));
+          dark = Math.ceil($scope.slider.min * (127 / 4));
           light = 255 - dark;
-          //angular.element(document).find('.rz-bar').clone().css({background: 'green'});
           angular.element(document.querySelector('.rz-bar.rz-selection'))
-            .css('background','-webkit-linear-gradient(left, rgb('+light+','+light+','+light+'), rgb('+dark+','+dark+','+dark+'))');
+            .css('background', '-webkit-linear-gradient(left, rgb(' + light + ',' + light + ',' + light + '), rgb(' + dark + ',' + dark + ',' + dark + '))');
           angular.element(document.querySelector('.rzslider .rz-pointer:after'))
             .css('background', 'green');
-          console.log(light);
-          console.log(dark);
-          //angular.element(document.querySelector( '.rzslider.rz-pointer.rz-pointer-max:after' ))
-          //  .css('background-color', 'rgb('+dark+','+dark+','+dark+')');
         }
       }
     };
