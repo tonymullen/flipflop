@@ -41,7 +41,6 @@
                 el.style.display = 'inline';
               });
             }
-            console.log('pro video ended');
           }, false);
           vid.addEventListener('timeupdate', function() {
             var pct = Math.floor((100 / vid.duration) * vid.currentTime);
@@ -50,7 +49,7 @@
         }
 
         function other(p_or_c) {
-          return p_or_c === 'pro' ? 'con' : 'pro'; 
+          return p_or_c === 'pro' ? 'con' : 'pro';
         }
 
         scope.$on('play-start-pro', function(event, data) {
@@ -91,19 +90,13 @@
 
         }
 
-
         function startPlay(pro_con) {
-          // videoElements[pro_con].src = window.URL.createObjectURL(stream);
           videoElements[pro_con].play();
-          console.log('playing');
-          // videoElements[pro_con].muted = true;
-          // videoElements[pro_con].controls = false;
         }
 
         function stopPlay(pro_con) {
           videoElements[pro_con].pause();
         }
-
       }
     };
   }

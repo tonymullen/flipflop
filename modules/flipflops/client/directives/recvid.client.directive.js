@@ -17,11 +17,16 @@
       bindController: true,
       templateUrl: '/modules/flipflops/client/views/rec-vid.template.html',
       link: function(scope, element, attributes, controller) {
+        var VIDLENGTH = 5;
         var videoElements = {};
         videoElements.pro = document.querySelector('#provid');
         videoElements.con = document.querySelector('#convid');
         // var videoProElement = document.querySelector('#provid');
         // var videoConElement = document.querySelector('#convid');
+        var progress = {};
+        progress.pro = document.querySelector('#proRecProgress');
+        progress.con = document.querySelector('#conRecProgress');
+
         var progressBar = document.querySelector('#progress-bar');
         var percentage = document.querySelector('#percentage');
         var currentBrowser = !!navigator.mozGetUserMedia ? 'gecko' : 'chromium';
@@ -32,6 +37,10 @@
         var av_rec_data = {
           'pro': {},
           'con': {}
+        };
+        var av_rec_start = {
+          'pro': 0,
+          'con': 0
         };
 
         var isRecordOnlyAudio = !!navigator.mozGetUserMedia;
@@ -218,12 +227,26 @@
         }
 
         function startRecording(pro_con) {
+          var firstTimeCheck = true;
           captureUserMedia(function(stream) {
             mediaStream = stream;
             videoElements[pro_con].src = window.URL.createObjectURL(stream);
             videoElements[pro_con].play();
             videoElements[pro_con].muted = true;
             videoElements[pro_con].controls = false;
+            var prog = progress[pro_con];
+            setTimeout(function() {
+              stopRecording(pro_con);
+            }, VIDLENGTH * 1000);
+
+            videoElements[pro_con].addEventListener('timeupdate', function timeUpdateHandler() {
+              if (firstTimeCheck) {
+                av_rec_start[pro_con] = videoElements[pro_con].currentTime;
+                firstTimeCheck = false;
+              }
+              var pct = Math.floor((100 / VIDLENGTH) * (videoElements[pro_con].currentTime - av_rec_start[pro_con]));
+              prog.style.width = pct + '%';
+            }, false);
 
             // it is second parameter of the RecordRTC
             var audioConfig = {
@@ -280,6 +303,7 @@
         function stopRecording(pro_con) {
           // btnStartRecording.disabled = false;
           // btnStopRecording.disabled = true;
+
           if (isRecordOnlyAudio) {
             audioRecorder.stopRecording(onStopRecording);
             return;
