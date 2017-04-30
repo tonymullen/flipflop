@@ -40,6 +40,7 @@
     vm.pro = { selected: false, playing: false };
     vm.con = { selected: false, playing: false };
     vm.select = select;
+    vm.selectionMade = false;
     $scope.slider = {
       options: {
         floor: 0,
@@ -140,6 +141,7 @@
     function select(pro_or_con) {
       vm.pro.selected = pro_or_con === 'pro';
       vm.con.selected = pro_or_con === 'con';
+      vm.selectionMade = true;
     }
 
     function changeTopic() {

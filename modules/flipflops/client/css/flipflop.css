@@ -217,3 +217,7 @@ div .progress {
   width: 90%;
   margin: 0 auto 10px auto;
 }
+
+.progress-bar {
+  background-color: #18bc9c;
+}

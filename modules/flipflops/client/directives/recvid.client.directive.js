@@ -27,8 +27,6 @@
         progress.pro = document.querySelector('#proRecProgress');
         progress.con = document.querySelector('#conRecProgress');
 
-        var progressBar = document.querySelector('#progress-bar');
-        var percentage = document.querySelector('#percentage');
         var currentBrowser = !!navigator.mozGetUserMedia ? 'gecko' : 'chromium';
         var fileName;
         var audioRecorder;
@@ -42,17 +40,9 @@
           'pro': 0,
           'con': 0
         };
+        var recording = false;
 
         var isRecordOnlyAudio = !!navigator.mozGetUserMedia;
-        if (isRecordOnlyAudio && currentBrowser === 'chromium') {
-          var parentNode = videoElements.pro.parentNode;
-          parentNode.removeChild(videoElements.pro);
-
-          videoElements.pro = document.createElement('audio');
-          videoElements.pro.style.padding = '.4em';
-          videoElements.pro.controls = true;
-          parentNode.appendChild(videoElements.pro);
-        }
 
         scope.$on('rec-start-pro', function(event, data) {
           startRecording('pro');
@@ -126,40 +116,6 @@
           }, function errorCallback(response) {
             console.log('failed to upload properly');
           });
-
-        //   xhr('/api/upload', JSON.stringify(files), function(_fileName) {
-        //     var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
-        //     videoElements.pro.src = href + '/api/upload/' + _fileName;
-        //     videoElements.pro.play();
-        //     videoElements.pro.muted = false;
-        //     videoElements.pro.controls = true;
-        //   });
-
-        //   // if (mediaStream) mediaStream.stop();
-        // }
-
-        // function xhr(url, data, callback) {
-        //   var request = new XMLHttpRequest();
-        //   request.onreadystatechange = function() {
-        //     if (request.readyState === 4 && request.status === 200) {
-        //       callback(request.responseText);
-        //     }
-        //   };
-
-          // request.upload.onprogress = function(event) {
-          //   progressBar.max = event.total;
-          //   progressBar.value = event.loaded;
-          //   progressBar.innerHTML = 'Upload Progress ' + Math.round(event.loaded / event.total * 100) + '%';
-          // };
-
-          // request.upload.onload = function() {
-          //   percentage.style.display = 'none';
-          //   progressBar.style.display = 'none';
-          // };
-
-          // console.log(data);
-          // request.open('POST', url);
-          // request.send(data);
         }
 
         function generateRandomString() {
@@ -174,7 +130,7 @@
         }
 
         function onStopRecording(pro_con) {
-
+          recording = false;
           audioRecorder.getDataURL(function(audioDataURL) {
             var audio = {
               blob: audioRecorder.getBlob(),
@@ -182,33 +138,33 @@
             };
 
             // if record both wav and webm
-            if (!isRecordOnlyAudio) {
-              audio.blob = new File([audio.blob], 'audio.wav', {
-                type: 'audio/wav'
-              });
+            //if (!isRecordOnlyAudio) {
+            audio.blob = new File([audio.blob], 'audio.wav', {
+              type: 'audio/wav'
+            });
 
-              videoRecorder.getDataURL(function(videoDataURL) {
-                var video = {
-                  blob: videoRecorder.getBlob(),
-                  dataURL: videoDataURL
-                };
+            videoRecorder.getDataURL(function(videoDataURL) {
+              var video = {
+                blob: videoRecorder.getBlob(),
+                dataURL: videoDataURL
+              };
 
-                av_rec_data[pro_con] = {
-                  'audio': audio,
-                  'video': video
-                };
-                console.log(av_rec_data);
-                // postFiles(audio, video);
-                if (mediaStream) mediaStream.stop();
-              });
-              return;
-            }
+              av_rec_data[pro_con] = {
+                'audio': audio,
+                'video': video
+              };
+              console.log(av_rec_data);
+              // postFiles(audio, video);
+              if (mediaStream) mediaStream.stop();
+            });
+            return;
+            //}
 
             // if record only audio (either wav or ogg)
-            if (isRecordOnlyAudio) {
-              // postFiles(audio);
-              if (mediaStream) mediaStream.stop();
-            }
+            // if (isRecordOnlyAudio) {
+            //   // postFiles(audio);
+            //   if (mediaStream) mediaStream.stop();
+            // }
 
           });
         }
@@ -228,13 +184,17 @@
 
         function startRecording(pro_con) {
           var firstTimeCheck = true;
+          // mediaStream = null;
+          document.querySelectorAll('.playIconsContainer').forEach(function(button){
+            button.style.visibility = 'hidden'
+          });
+          recording = true;
           captureUserMedia(function(stream) {
             mediaStream = stream;
             videoElements[pro_con].src = window.URL.createObjectURL(stream);
             videoElements[pro_con].play();
             videoElements[pro_con].muted = true;
             videoElements[pro_con].controls = false;
-            var prog = progress[pro_con];
             setTimeout(function() {
               stopRecording(pro_con);
             }, VIDLENGTH * 1000);
@@ -244,8 +204,10 @@
                 av_rec_start[pro_con] = videoElements[pro_con].currentTime;
                 firstTimeCheck = false;
               }
-              var pct = Math.floor((100 / VIDLENGTH) * (videoElements[pro_con].currentTime - av_rec_start[pro_con]));
-              prog.style.width = pct + '%';
+              if (recording) {
+                var pct = Math.floor((100 / VIDLENGTH) * (videoElements[pro_con].currentTime - av_rec_start[pro_con]));
+                progress[pro_con].style.width = pct + '%';
+              }
             }, false);
 
             // it is second parameter of the RecordRTC
@@ -303,7 +265,7 @@
         function stopRecording(pro_con) {
           // btnStartRecording.disabled = false;
           // btnStopRecording.disabled = true;
-
+          
           if (isRecordOnlyAudio) {
             audioRecorder.stopRecording(onStopRecording);
             return;
@@ -316,6 +278,12 @@
               });
             });
           }
+          setTimeout(function() {
+            progress[pro_con].style.width = '100%';
+            document.querySelectorAll('.playIconsContainer').forEach(function(button){
+              button.style.visibility = 'visible';
+            });
+          }, 2000);
         }
 
         window.onbeforeunload = function() {

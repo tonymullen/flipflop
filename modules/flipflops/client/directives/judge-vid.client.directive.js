@@ -41,7 +41,15 @@
                 el.style.display = 'inline';
               });
             }
+            setTimeout(function(){
+              document.querySelectorAll('.playIconsContainer').forEach(function(button){
+                button.style.visibility = 'visible'
+              });
+            }, 2000);
           }, false);
+          document.querySelectorAll('.playIconsContainer').forEach(function(button){
+            button.style.visibility = 'hidden'
+          });
           vid.addEventListener('timeupdate', function() {
             var pct = Math.floor((100 / vid.duration) * vid.currentTime);
             prog.style.width = pct + '%';
@@ -87,7 +95,7 @@
         }
 
         function onStopPlay() {
-
+          
         }
 
         function startPlay(pro_con) {
