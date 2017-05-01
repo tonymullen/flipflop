@@ -131,6 +131,10 @@
     function doJudge() {
       var date = new Date();
       vm.flipflop.seen = date.toISOString();
+      var bias = vm.pro.selected ? 1 : -1;
+      var newbias = vm.flipflop.bias * vm.flipflop.evals;
+      vm.flipflop.evals++;
+      vm.flipflop.bias = (newbias + bias) / vm.flipflop.evals;
       vm.flipflop.$update(function(response) {
         $state.go('home');
       }, function(err) {

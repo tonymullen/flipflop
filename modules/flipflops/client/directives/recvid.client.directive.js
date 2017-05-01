@@ -138,7 +138,7 @@
             };
 
             // if record both wav and webm
-            //if (!isRecordOnlyAudio) {
+            // if (!isRecordOnlyAudio) {
             audio.blob = new File([audio.blob], 'audio.wav', {
               type: 'audio/wav'
             });
@@ -158,7 +158,7 @@
               if (mediaStream) mediaStream.stop();
             });
             return;
-            //}
+            // }
 
             // if record only audio (either wav or ogg)
             // if (isRecordOnlyAudio) {
@@ -185,8 +185,8 @@
         function startRecording(pro_con) {
           var firstTimeCheck = true;
           // mediaStream = null;
-          document.querySelectorAll('.playIconsContainer').forEach(function(button){
-            button.style.visibility = 'hidden'
+          document.querySelectorAll('.playIconsContainer').forEach(function(button) {
+            button.style.visibility = 'hidden';
           });
           recording = true;
           captureUserMedia(function(stream) {
@@ -265,7 +265,7 @@
         function stopRecording(pro_con) {
           // btnStartRecording.disabled = false;
           // btnStopRecording.disabled = true;
-          
+
           if (isRecordOnlyAudio) {
             audioRecorder.stopRecording(onStopRecording);
             return;
@@ -280,7 +280,7 @@
           }
           setTimeout(function() {
             progress[pro_con].style.width = '100%';
-            document.querySelectorAll('.playIconsContainer').forEach(function(button){
+            document.querySelectorAll('.playIconsContainer').forEach(function(button) {
               button.style.visibility = 'visible';
             });
           }, 2000);

@@ -40,7 +40,7 @@ var FlipflopSchema = new Schema({
     type: String,
     enum: ['pro', 'con']
   },
-  strength: { type: Number, 'default': 0 },
+  strength: { type: Number, 'default': 2 },
   bias: { type: Number, 'default': 0 },
   evals: { type: Number, 'default': 0 },
   created: {
