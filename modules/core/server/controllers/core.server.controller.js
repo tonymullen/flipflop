@@ -27,7 +27,7 @@ exports.renderIndex = function (req, res) {
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
     sharedConfig: JSON.stringify(config.shared),
-    filepickerKey: process.env.FILEPICKER_API_KEY
+    filepickerKey: '\''+process.env.FILEPICKER_API_KEY+'\''
   });
 };
 
