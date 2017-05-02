@@ -11,6 +11,7 @@ var path = require('path'),
  */
 module.exports = function (app, db) {
   module.exports.upload_dir = './public/uploads';
+  module.exports.filestackKey = process.env.FILEPICKER_API_KEY;
   module.exports.s3 = {
     key: '',
     secret: '',

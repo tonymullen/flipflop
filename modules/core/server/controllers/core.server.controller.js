@@ -20,14 +20,15 @@ exports.renderIndex = function (req, res) {
       email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
-      additionalProvidersData: req.user.additionalProvidersData
+      additionalProvidersData: req.user.additionalProvidersData,
+      judgedFlipflops: req.user.judgedFlipflops,
+      seenTopics: req.user.seenTopics
     };
   }
 
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
-    sharedConfig: JSON.stringify(config.shared),
-    filepickerKey: process.env.FILEPICKER_API_KEY
+    sharedConfig: JSON.stringify(config.shared)
   });
 };
 

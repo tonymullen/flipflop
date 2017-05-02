@@ -7,9 +7,11 @@
     .module('flipflops')
     .controller('FlipflopsController', FlipflopsController);
 
-  FlipflopsController.$inject = ['$rootScope', '$scope', '$state', '$window', '$timeout', 'Authentication', 'flipflopResolve', 'topicResolve'];
+  FlipflopsController.$inject = ['$rootScope', '$scope', '$state', '$window', '$timeout',
+    'Authentication', 'flipflopResolve', 'topicResolve', 'UsersService'];
 
-  function FlipflopsController ($rootScope, $scope, $state, $window, $timeout, Authentication, flipflop, topic) {
+  function FlipflopsController ($rootScope, $scope, $state, $window, $timeout,
+    Authentication, flipflop, topic, UsersService) {
     var vm = this;
     vm.authentication = Authentication;
     vm.error = null;
@@ -140,6 +142,11 @@
       }, function(err) {
         console.log('failed to update');
       });
+
+      var user = new UsersService(Authentication.user);
+      console.log(user);
+      user.judgedFlipflops.push(vm.flipflop);
+      user.$update();
     }
 
     function select(pro_or_con) {

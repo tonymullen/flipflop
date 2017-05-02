@@ -13,6 +13,7 @@ Thumbs.db
 .sass-cache/
 node_modules/
 public/lib/
+!public/lib/bootstrap
 app/tests/coverage/
 .bower-*/
 .idea/
