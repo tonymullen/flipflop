@@ -168,9 +168,9 @@ exports.updateTopic = function(req, res) {
 /**
  * judge
  */
-
 exports.judge = function(req, res) {
-  Flipflop.findOne({}, {}, { sort: { 'seen': 1 } })
+  console.log(req.user._id);
+  Flipflop.findOne({ user: { $ne: req.user._id } }, {}, { sort: { 'seen': 1 } })
     .populate('user', 'displayName')
       .exec(function (err, flipflop) {
         if (err) {
@@ -187,7 +187,6 @@ exports.judge = function(req, res) {
 /**
  * fetch topipc by seen value
  */
-
 exports.fetchTopic = function(req, res) {
   Topic.findOne({}, {}, { sort: { 'seen': 1 } })
       .exec(function (err, topic) {

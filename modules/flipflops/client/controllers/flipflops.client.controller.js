@@ -118,7 +118,6 @@
     }
 
     function startPlay(pro_or_con) {
-      // vm.disable_play_pro = vm.disable_play_con = true;
       $rootScope.$broadcast('play-start-' + pro_or_con, {});
       vm[pro_or_con].playing = true;
     }
@@ -126,8 +125,6 @@
     function stopPlay(pro_or_con) {
       $rootScope.$broadcast('play-stop-' + pro_or_con, {});
       vm[pro_or_con].playing = false;
-      // vm.disable_play_pro = vm.disable_play_con = false;
-      // vm.disable_stp_pro = vm.disable_stp_con = true;
     }
 
     function doJudge() {
