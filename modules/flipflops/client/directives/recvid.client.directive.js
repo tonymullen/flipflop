@@ -232,8 +232,8 @@
 
             if (!isRecordOnlyAudio) {
               audioConfig.onAudioProcessStarted = function() {
-              // invoke video recorder in this callback
-              // to get maximum sync
+                // invoke video recorder in this callback
+                // to get maximum sync
                 videoRecorder.startRecording();
               };
             }
@@ -264,8 +264,8 @@
 
             audioRecorder.startRecording();
 
-              // enable stop-recording button
-              // btnStopRecording.disabled = false;
+            // enable stop-recording button
+            // btnStopRecording.disabled = false;
           });
         }
 
