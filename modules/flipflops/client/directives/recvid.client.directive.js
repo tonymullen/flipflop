@@ -43,6 +43,15 @@
         var recording = false;
 
         var isRecordOnlyAudio = !!navigator.mozGetUserMedia;
+        if (isRecordOnlyAudio && currentBrowser === 'chromium') {
+          var parentNode = videoElements.pro.parentNode;
+          parentNode.removeChild(videoElements.pro);
+
+          videoElements.pro = document.createElement('audio');
+          videoElements.pro.style.padding = '.4em';
+          videoElements.pro.controls = true;
+          parentNode.appendChild(videoElements.pro);
+        }
 
         scope.$on('rec-start-pro', function(event, data) {
           startRecording('pro');
@@ -138,33 +147,33 @@
             };
 
             // if record both wav and webm
-            // if (!isRecordOnlyAudio) {
-            audio.blob = new File([audio.blob], 'audio.wav', {
-              type: 'audio/wav'
-            });
+            if (!isRecordOnlyAudio) {
+              audio.blob = new File([audio.blob], 'audio.wav', {
+                type: 'audio/wav'
+              });
 
-            videoRecorder.getDataURL(function(videoDataURL) {
-              var video = {
-                blob: videoRecorder.getBlob(),
-                dataURL: videoDataURL
-              };
+              videoRecorder.getDataURL(function(videoDataURL) {
+                var video = {
+                  blob: videoRecorder.getBlob(),
+                  dataURL: videoDataURL
+                };
 
-              av_rec_data[pro_con] = {
-                'audio': audio,
-                'video': video
-              };
-              console.log(av_rec_data);
-              // postFiles(audio, video);
-              if (mediaStream) mediaStream.stop();
-            });
-            return;
-            // }
+                av_rec_data[pro_con] = {
+                  'audio': audio,
+                  'video': video
+                };
+                // console.log(av_rec_data);
+                // postFiles(audio, video);
+                if (mediaStream) mediaStream.stop();
+              });
+              return;
+            }
 
             // if record only audio (either wav or ogg)
-            // if (isRecordOnlyAudio) {
-            //   // postFiles(audio);
-            //   if (mediaStream) mediaStream.stop();
-            // }
+            if (isRecordOnlyAudio) {
+              // postFiles(audio);
+              if (mediaStream) mediaStream.stop();
+            }
 
           });
         }

@@ -1,5 +1,9 @@
 public/uploads/
 
+# Heroku environment
+# ========
+.env
+
 # OS
 # ===========
 .DS_Store

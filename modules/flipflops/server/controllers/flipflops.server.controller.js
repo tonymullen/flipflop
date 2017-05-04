@@ -169,8 +169,9 @@ exports.updateTopic = function(req, res) {
  * judge
  */
 exports.judge = function(req, res) {
-  console.log(req.user._id);
-  Flipflop.findOne({ user: { $ne: req.user._id } }, {}, { sort: { 'seen': 1 } })
+  Flipflop.findOne({ user: { $ne: req.user._id },
+    _id: { $nin: req.user.judgedFlipflops } },
+    {}, { sort: { 'seen': 1 } })
     .populate('user', 'displayName')
       .exec(function (err, flipflop) {
         if (err) {
